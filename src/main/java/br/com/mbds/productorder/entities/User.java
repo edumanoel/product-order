@@ -38,7 +38,7 @@ public class User implements Serializable {
 	private String password;
 
 	@Builder.Default
-	@Setter(AccessLevel.PRIVATE)
+	@Setter(AccessLevel.NONE)
 	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();

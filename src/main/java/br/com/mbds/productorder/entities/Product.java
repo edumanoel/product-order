@@ -22,19 +22,21 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_categories")
-public class Category implements Serializable {
+@Table(name = "tb_products")
+public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	private String name;
+	private String description;
+	private Double price;
+	private String imgUrl;
 
 	@Builder.Default
 	@Setter(AccessLevel.NONE)
 	@Transient
-	private Set<Product> products = new HashSet<>();
+	private Set<Category> categories = new HashSet<>();
 
 }
