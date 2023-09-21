@@ -37,13 +37,12 @@ public class TestConfig implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		userRepository.saveAll(Arrays.asList(
+
+		List<User> users = userRepository.saveAll(Arrays.asList(
 				User.builder().name("Alex Green").email("alex@mail.com").phone("(99)99999-9999").password("123456")
 						.build(),
 				User.builder().name("Maria Brown").email("maria@mail.com").phone("(99)98888-8888").password("123456")
 						.build()));
-
-		List<User> users = userRepository.findAll();
 
 		orderRepository.saveAll(Arrays.asList(
 				Order.builder().moment(Instant.parse("2023-06-20T19:53:07Z")).client(users.get(0))
@@ -53,10 +52,11 @@ public class TestConfig implements CommandLineRunner {
 				Order.builder().moment(Instant.parse("2013-07-22T05:42:10Z")).client(users.get(1))
 						.orderStatus(OrderStatus.WAITING_PAYMENT.getId()).build()));
 
-		categoryRepository.saveAll(Arrays.asList(Category.builder().name("Electronics").build(),
-				Category.builder().name("Books").build(), Category.builder().name("Computers").build()));
+		List<Category> categories = categoryRepository
+				.saveAll(Arrays.asList(Category.builder().name("Electronics").build(),
+						Category.builder().name("Books").build(), Category.builder().name("Computers").build()));
 
-		productRepository.saveAll(Arrays.asList(
+		List<Product> products = productRepository.saveAll(Arrays.asList(
 				Product.builder().name("The Lord of the Rings").description("The Lord of the Rings description.")
 						.price(90.5).build(),
 				Product.builder().name("Smart TV").description("Smart TV description.").price(2190.0).build(),
@@ -64,6 +64,14 @@ public class TestConfig implements CommandLineRunner {
 				Product.builder().name("PC Gamer").description("PC Gamer description.").price(1200.0).build(),
 				Product.builder().name("Rails for Dummies").description("Rails for Dummies description.").price(100.99)
 						.build()));
+
+		products.get(0).getCategories().add(categories.get(1));
+		products.get(1).getCategories().add(categories.get(0));
+		products.get(1).getCategories().add(categories.get(2));
+		products.get(2).getCategories().add(categories.get(2));
+		products.get(3).getCategories().add(categories.get(2));
+		products.get(4).getCategories().add(categories.get(1));
+		productRepository.saveAll(products);
 	}
 
 }
