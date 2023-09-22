@@ -2,6 +2,8 @@ package br.com.mbds.productorder.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.mbds.productorder.entities.pk.OrderItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -20,10 +22,10 @@ import lombok.Setter;
 public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Getter(AccessLevel.NONE)
-	@Setter(AccessLevel.NONE)
+	@Getter(value = AccessLevel.NONE)
+	@Setter(value = AccessLevel.NONE)
 	@EmbeddedId
-	private OrderItemPK id;
+	private OrderItemPK id = new OrderItemPK();
 
 	@EqualsAndHashCode.Exclude
 	private Integer quantity;
@@ -38,6 +40,7 @@ public class OrderItem implements Serializable {
 		this.price = price;
 	}
 
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}

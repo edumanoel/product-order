@@ -39,7 +39,7 @@ public class User implements Serializable {
 	private String password;
 
 	@Builder.Default
-	@Setter(AccessLevel.NONE)
+	@Setter(value = AccessLevel.NONE)
 	@EqualsAndHashCode.Exclude
 	@JsonIgnore
 	@OneToMany(mappedBy = "client")

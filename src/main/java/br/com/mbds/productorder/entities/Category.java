@@ -36,7 +36,7 @@ public class Category implements Serializable {
 	private String name;
 
 	@Builder.Default
-	@Setter(AccessLevel.NONE)
+	@Setter(value = AccessLevel.NONE)
 	@EqualsAndHashCode.Exclude
 	@JsonIgnore
 	@ManyToMany(mappedBy = "categories")

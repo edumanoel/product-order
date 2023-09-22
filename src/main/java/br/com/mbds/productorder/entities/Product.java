@@ -38,7 +38,7 @@ public class Product implements Serializable {
 	private String imgUrl;
 
 	@Builder.Default
-	@Setter(AccessLevel.NONE)
+	@Setter(value = AccessLevel.NONE)
 	@EqualsAndHashCode.Exclude
 	@ManyToMany
 	@JoinTable(name = "tb_products_categories", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))

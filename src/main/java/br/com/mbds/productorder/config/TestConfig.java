@@ -11,10 +11,12 @@ import org.springframework.context.annotation.Profile;
 
 import br.com.mbds.productorder.entities.Category;
 import br.com.mbds.productorder.entities.Order;
+import br.com.mbds.productorder.entities.OrderItem;
 import br.com.mbds.productorder.entities.Product;
 import br.com.mbds.productorder.entities.User;
 import br.com.mbds.productorder.entities.enums.OrderStatus;
 import br.com.mbds.productorder.repositories.CategoryRepository;
+import br.com.mbds.productorder.repositories.OrderItemRepository;
 import br.com.mbds.productorder.repositories.OrderRepository;
 import br.com.mbds.productorder.repositories.ProductRepository;
 import br.com.mbds.productorder.repositories.UserRepository;
@@ -35,6 +37,9 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired
 	private ProductRepository productRepository;
 
+	@Autowired
+	private OrderItemRepository orderItemRepository;
+
 	@Override
 	public void run(String... args) throws Exception {
 
@@ -44,7 +49,7 @@ public class TestConfig implements CommandLineRunner {
 				User.builder().name("Maria Brown").email("maria@mail.com").phone("(99)98888-8888").password("123456")
 						.build()));
 
-		orderRepository.saveAll(Arrays.asList(
+		List<Order> orders = orderRepository.saveAll(Arrays.asList(
 				Order.builder().moment(Instant.parse("2023-06-20T19:53:07Z")).client(users.get(0))
 						.orderStatus(OrderStatus.DELIVERED.getId()).build(),
 				Order.builder().moment(Instant.parse("2013-07-21T03:42:10Z")).client(users.get(0))
@@ -72,6 +77,12 @@ public class TestConfig implements CommandLineRunner {
 		products.get(3).getCategories().add(categories.get(2));
 		products.get(4).getCategories().add(categories.get(1));
 		productRepository.saveAll(products);
+
+		orderItemRepository
+				.saveAll(Arrays.asList(new OrderItem(orders.get(0), products.get(0), 2, products.get(0).getPrice()),
+						new OrderItem(orders.get(0), products.get(2), 1, products.get(2).getPrice()),
+						new OrderItem(orders.get(1), products.get(2), 2, products.get(2).getPrice()),
+						new OrderItem(orders.get(2), products.get(4), 2, products.get(4).getPrice())));
 	}
 
 }
