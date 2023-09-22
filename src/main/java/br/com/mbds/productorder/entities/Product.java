@@ -16,6 +16,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -38,6 +39,7 @@ public class Product implements Serializable {
 
 	@Builder.Default
 	@Setter(AccessLevel.NONE)
+	@EqualsAndHashCode.Exclude
 	@ManyToMany
 	@JoinTable(name = "tb_products_categories", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();

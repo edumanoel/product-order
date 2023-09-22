@@ -16,6 +16,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -39,6 +40,7 @@ public class User implements Serializable {
 
 	@Builder.Default
 	@Setter(AccessLevel.NONE)
+	@EqualsAndHashCode.Exclude
 	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();

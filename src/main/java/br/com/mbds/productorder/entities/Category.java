@@ -16,6 +16,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -36,6 +37,7 @@ public class Category implements Serializable {
 
 	@Builder.Default
 	@Setter(AccessLevel.NONE)
+	@EqualsAndHashCode.Exclude
 	@JsonIgnore
 	@ManyToMany(mappedBy = "categories")
 	private Set<Product> products = new HashSet<>();
