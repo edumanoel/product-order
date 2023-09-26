@@ -22,4 +22,12 @@ public class UserService {
 		return repository.findById(id).get();
 	}
 
+	public User insert(User entity) {
+		return repository.save(entity);
+	}
+
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+
 }
