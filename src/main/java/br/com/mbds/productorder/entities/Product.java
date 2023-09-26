@@ -26,13 +26,15 @@ import lombok.Setter;
 
 @Builder
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tb_products")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -43,15 +45,13 @@ public class Product implements Serializable {
 
 	@Builder.Default
 	@Setter(value = AccessLevel.NONE)
-	@EqualsAndHashCode.Exclude
 	@ManyToMany
 	@JoinTable(name = "tb_products_categories", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 
 	@Builder.Default
-	@Setter(value = AccessLevel.NONE)
 	@Getter(value = AccessLevel.NONE)
-	@EqualsAndHashCode.Exclude
+	@Setter(value = AccessLevel.NONE)
 	@OneToMany(mappedBy = "id.product")
 	private Set<OrderItem> items = new HashSet<>();
 

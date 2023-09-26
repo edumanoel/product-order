@@ -22,8 +22,8 @@ import lombok.Setter;
 
 @Builder
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_categories")
 public class Category implements Serializable {

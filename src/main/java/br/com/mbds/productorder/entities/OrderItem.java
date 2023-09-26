@@ -17,6 +17,7 @@ import lombok.Setter;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tb_order_item")
 public class OrderItem implements Serializable {
@@ -24,13 +25,12 @@ public class OrderItem implements Serializable {
 
 	@Getter(value = AccessLevel.NONE)
 	@Setter(value = AccessLevel.NONE)
+	@EqualsAndHashCode.Include
 	@EmbeddedId
 	private OrderItemPK id = new OrderItemPK();
 
-	@EqualsAndHashCode.Exclude
 	private Integer quantity;
 
-	@EqualsAndHashCode.Exclude
 	private Double price;
 
 	public OrderItem(Order order, Product product, Integer quantity, Double price) {

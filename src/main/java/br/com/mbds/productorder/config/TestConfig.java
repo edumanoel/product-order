@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 import br.com.mbds.productorder.entities.Category;
 import br.com.mbds.productorder.entities.Order;
 import br.com.mbds.productorder.entities.OrderItem;
+import br.com.mbds.productorder.entities.Payment;
 import br.com.mbds.productorder.entities.Product;
 import br.com.mbds.productorder.entities.User;
 import br.com.mbds.productorder.entities.enums.OrderStatus;
@@ -83,6 +84,11 @@ public class TestConfig implements CommandLineRunner {
 						new OrderItem(orders.get(0), products.get(2), 1, products.get(2).getPrice()),
 						new OrderItem(orders.get(1), products.get(2), 2, products.get(2).getPrice()),
 						new OrderItem(orders.get(2), products.get(4), 2, products.get(4).getPrice())));
+
+		orders.get(0).setPayment(new Payment(null, Instant.parse("2023-06-20T20:13:48Z"), orders.get(0)));
+		orders.get(1).setPayment(new Payment(null, Instant.parse("2013-07-21T05:28:19Z"), orders.get(1)));
+		orderRepository.saveAll(orders);
+
 	}
 
 }
