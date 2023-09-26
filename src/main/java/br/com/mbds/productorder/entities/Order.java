@@ -70,4 +70,12 @@ public class Order implements Serializable {
 		}
 	}
 
+	public Double getTotal() {
+		Double resultado = 0.0;
+		for (OrderItem item : items) {
+			resultado += item.getSubTotal();
+		}
+		return resultado;
+	}
+
 }
