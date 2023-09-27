@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.mbds.productorder.entities.Category;
 import br.com.mbds.productorder.repositories.CategoryRepository;
+import br.com.mbds.productorder.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class CategoryService {
@@ -19,7 +20,7 @@ public class CategoryService {
 	}
 
 	public Category findById(Long id) {
-		return repository.findById(id).get();
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 }
